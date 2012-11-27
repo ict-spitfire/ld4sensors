@@ -38,6 +38,49 @@
             <artifactId>json-jena</artifactId>
             <version>1.0</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.apache.commons.codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.5</version>
+        </dependency>
+        
+		<dependency>
+            <groupId>org.apache.http.auth</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+		<dependency>
+            <groupId>org.apache.http.conn</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+		<dependency>
+            <groupId>org.apache.http.client</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+		<dependency>
+            <groupId>org.apache.http.cookie</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+		<dependency>
+            <groupId>org.apache.http.annotation</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.1.2</version>
+        </dependency>
+		<dependency>
+            <groupId>org.apache.http</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.1.3</version>
+        </dependency>
+        
+		<dependency>
+            <groupId>org.restlet.ext.json</groupId>
+            <artifactId>restlet-json</artifactId>
+            <version>2.0.0</version>
+        </dependency>
 
         <dependency>
             <groupId>org.restlet.jse</groupId>
