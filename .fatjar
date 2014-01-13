@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Mon Jan 13 21:14:26 GMT 2014
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=ld4s_lastworking.jar
+manifest.mergeall=true
+manifest.mainclass=eu.spitfire_project.ld4s.server.Server
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=

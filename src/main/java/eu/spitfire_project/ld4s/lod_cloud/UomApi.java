@@ -28,11 +28,14 @@ public class UomApi extends SearchRouter {
 	public static final String UCUM_FILE_SOURCE = "http://aurora.regenstrief.org/~ucum/ucum-essence.xml";
 	private static final String DBPEDIA_DISAMBIGUATION_SUFFIX = "_(disambiguation)";
 
+	private String path = null;
+
 
 
 	public UomApi(String baseHost, Context context,
-			User author, Resource from_resource) {
+			User author, Resource from_resource, String uomFilePath) {
 		super(baseHost, context, author, from_resource);
+		this.path = uomFilePath;
 	}
 
 
@@ -144,6 +147,9 @@ public class UomApi extends SearchRouter {
 
 	@Override
 	public Model start() throws Exception {
+		if (path == null){
+			return null;
+		}
 		String thing = context.getThing();
 
 		//get the factory
@@ -151,7 +157,6 @@ public class UomApi extends SearchRouter {
 
 		try {
 			DocumentBuilder db = dbf.newDocumentBuilder();
-			String path = SptVocab.class.getResource(UCUM_FILE).getPath();
 			Document dom = db.parse(path);
 			Element docEle = dom.getDocumentElement();
 			Uom uom = null;
@@ -167,11 +172,11 @@ public class UomApi extends SearchRouter {
 				//if it finds it, get the wikipedia ID of the redirection field
 				//repeats the search in the stardard units file (getUnit(..))
 				uom = getUnit(docEle.getElementsByTagName("unit"), thing);
-//				useless because this would return just a prefix, meaning nothing specific
-//				//search for either Code/CODE in prefix (remove eventual [])
-//				//or name
-//				//or printSymbol in prefix
-//				uom = getUnit(docEle.getElementsByTagName("prefix"), thing);
+				//				useless because this would return just a prefix, meaning nothing specific
+				//				//search for either Code/CODE in prefix (remove eventual [])
+				//				//or name
+				//				//or printSymbol in prefix
+				//				uom = getUnit(docEle.getElementsByTagName("prefix"), thing);
 
 			}
 			if (uom != null){
@@ -274,7 +279,7 @@ public class UomApi extends SearchRouter {
 			model.add(to_resource.getModel());
 		}
 		return model;
-		
+
 	}
 
 }

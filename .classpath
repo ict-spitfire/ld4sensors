@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="target/classes" path="src/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/com.noelios.restlet.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/commons-codec-1.5.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/commons-io-1.3.2.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/httpclient-4.1.2.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/httpcore-4.1.3.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/jena-arq-2.9.1.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/jena-core-2.7.1.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/jena-iri-0.9.1.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/jena-tdb-0.9.1.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/org.apache.httpcore.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/org.json.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/org.restlet.example.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/org.restlet.ext.json.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/org.restlet.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/slf4j-api-1.6.4.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/slf4j-log4j12-1.6.4.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/xercesImpl-2.10.0.jar"/>
+	<classpathentry kind="lib" path="/home/iammyr/Dropbox/lib/xml-apis-1.4.01.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

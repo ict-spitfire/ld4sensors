@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -68,6 +69,7 @@ import eu.spitfire_project.ld4s.lod_cloud.UomApi;
 import eu.spitfire_project.ld4s.lod_cloud.WeatherApi;
 import eu.spitfire_project.ld4s.resource.link.Link;
 import eu.spitfire_project.ld4s.server.Server;
+import eu.spitfire_project.ld4s.server.ServerProperties;
 import eu.spitfire_project.ld4s.vocabulary.CorelfVocab;
 import eu.spitfire_project.ld4s.vocabulary.FoafVocab;
 import eu.spitfire_project.ld4s.vocabulary.LD4SConstants;
@@ -579,7 +581,7 @@ public abstract class LD4SDataResource extends ServerResource{
 			break;
 		case UNIT:
 			searchobj = new UomApi(this.ld4sServer.getHostName(), 
-					context, this.user, resource);
+					context, this.user, resource, getUomFilePath());
 			break;
 		default: //searched in cross-domain datasets
 			searchobj = new EncyclopedicApi(this.ld4sServer.getHostName(), 
@@ -591,8 +593,32 @@ public abstract class LD4SDataResource extends ServerResource{
 		}
 		return resource;
 	}
+	
+	protected String getRuleFilePath(){
+		ServerProperties sp = this.ld4sServer.getServerProperties();
+		return sp.get(ServerProperties.RULES_FILE_KEY);
+	}
+	
+	protected String getDatasetFolderPath(){
+		return ld4sServer.getServerProperties().getFoldername()+
+				LD4SConstants.SYSTEM_SEPARATOR+"tdb"
+				+LD4SConstants.SYSTEM_SEPARATOR+"LD4SDataset1";
+	}
+	
+	public static String getCurrentTime(){
+		String now = null;
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		//get current date time with Date()
+		Date date = new Date();
+		now = dateFormat.format(date);
+		return now;
+	}
+	
 
-
+	protected String getUomFilePath(){
+		ServerProperties sp = this.ld4sServer.getServerProperties();
+		return sp.get(ServerProperties.UOM_FILE_KEY);
+	}
 
 
 	public static String removeBrackets(String string) {
@@ -825,15 +851,15 @@ public abstract class LD4SDataResource extends ServerResource{
 	}
 
 	protected Resource addObservedProperty (Resource resource, String observed_property,
-			Property prop, String foi)
+			Property prop)
 	throws Exception{
 		String item_uri = getResourceUri(this.ld4sServer.getHostName(), "resource/property", observed_property);
 		Resource item_resource = resource.getModel().createResource(item_uri);
 		Context con = new Context(this.ld4sServer.getHostName());
 		con.setThing(observed_property);
-		con.setAdditionalTerms(new String[][]{
-				{"", foi}
-		});
+//		con.setAdditionalTerms(new String[][]{
+//				{"", foi}
+//		});
 		item_resource = addLinkedData(item_resource, Domain.FEATURE, con);
 		if (item_resource != null){
 			resource.addProperty(prop, item_resource);
@@ -1120,7 +1146,14 @@ public abstract class LD4SDataResource extends ServerResource{
 
 	protected Representation serializeAccordingToReqMediaType(Model rdfData){
 		String str_rdfData = null;
-		if (requestedMedia.equals(MediaType.APPLICATION_RDF_XML)) {
+		if (requestedMedia == null){
+			requestedMedia = MediaType.APPLICATION_RDF_XML;
+		}
+		if (requestedMedia.getName().equalsIgnoreCase(LD4SConstants.MEDIA_TYPE_RDF_JSON)) {
+			str_rdfData = serializeRDFModel(rdfData, LD4SConstants.RESOURCE_URI_BASE,
+					LD4SConstants.LANG_RDFJSON);
+		}
+		else if (requestedMedia.equals(MediaType.APPLICATION_RDF_XML)) {
 			str_rdfData = serializeRDFModel(rdfData, LD4SConstants.RESOURCE_URI_BASE,
 					LD4SConstants.LANG_RDFXML);
 		}
@@ -1132,14 +1165,21 @@ public abstract class LD4SDataResource extends ServerResource{
 				|| requestedMedia.equals(MediaType.APPLICATION_RDF_TURTLE)
 				|| requestedMedia.equals(MediaType.APPLICATION_ALL)
 				|| requestedMedia.equals(MediaType.ALL)
-		)			
+				)			
 		{
 			str_rdfData = serializeRDFModel(rdfData, null, LD4SConstants.LANG_TURTLE);
 		}else{
 			setStatus(Status.CLIENT_ERROR_UNSUPPORTED_MEDIA_TYPE);
 			return null;
 		}
-		return getStringRepresentationFromRdf(str_rdfData, requestedMedia);
+		Representation ret = getStringRepresentationFromRdf(str_rdfData, requestedMedia);
+		try {
+			this.getLogger().info("***RESPONSE***" +ret.getText());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ret;
 	}
 
 	/**

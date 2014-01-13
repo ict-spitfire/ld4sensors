@@ -3,6 +3,13 @@ package eu.spitfire_project.ld4s.vocabulary;
 import eu.spitfire_project.ld4s.server.ServerProperties;
 
 public class LD4SConstants {
+	
+	public static final String URI_LIGHT = "http://dbpedia.org/resource/Light";
+	public static final String URI_TEMP = "http://dbpedia.org/resource/Temperature";
+	public static final String URI_ACCELEROMETER = "http://dbpedia.org/resource/Accelerometer";
+	public static final String URI_PIR = "http://dbpedia.org/resource/Motion_(physics)";
+	public static final String URI_PIR1 = "http://spitfire-project.eu/ontology/ns/ct/Motion";
+	
 	  public static final String SINDICE_VOCAB = "http://sindice.com/vocab/fields#";
 	  public static final String SINDICE_SEARCH_VOCAB = "http://sindice.com/vocab/search#";
 
@@ -16,9 +23,11 @@ public class LD4SConstants {
 	  public static final String MEDIA_TYPE_TURTLE = "application/x-turtle";
 	  public static final String MEDIA_TYPE_NTRIPLES = "text/plain";
 	  public static final String MEDIA_TYPE_SPARQL_RESULTS = "application/sparql-results+xml";
+	  public static final String MEDIA_TYPE_RDF_JSON = "application/rdf+json";
 	  public static final String LANG_N3 = "N3";
 	  public static final String LANG_TURTLE = "TURTLE";
 	  public static final String LANG_RDFXML = "RDF/XML";
+	  public static final String LANG_RDFJSON = "RDF/JSON";
 	  public static final String LANG_NTRIPLE = "N-TRIPLE";
 	  public static final String LANG_RDFXML_ABBREV = "RDF/XML-ABBREV";
 	  
@@ -34,4 +43,11 @@ public class LD4SConstants {
 
 	  public static final String SEPARATOR1_ID = " ";
 	  public static final String SEPARATOR2_ID = "__";
+	  public static final String JSON_SEPARATOR = "_";
+	  
+	  public static String UOM_FILE_PATH = null;
+	  
+	  public static void setUomFile(String path){
+		  LD4SConstants.UOM_FILE_PATH = path;
+	  }
 }

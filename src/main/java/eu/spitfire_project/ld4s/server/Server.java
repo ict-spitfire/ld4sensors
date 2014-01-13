@@ -10,6 +10,7 @@ import org.restlet.routing.Router;
 
 import eu.spitfire_project.ld4s.cache.FrontSideCache;
 import eu.spitfire_project.ld4s.dataset.VocabVoIDResource;
+import eu.spitfire_project.ld4s.resource.actuator_decision.ActuatorDecisionResource;
 import eu.spitfire_project.ld4s.resource.device.DeviceResource;
 import eu.spitfire_project.ld4s.resource.link.LinkResource;
 import eu.spitfire_project.ld4s.resource.link_review.LinkReviewResource;
@@ -57,6 +58,16 @@ public class Server extends Application{
 		return newInstance(new ServerProperties());
 	}
 
+	/**
+	 * Returns the full URI associated with this server. Example:
+	 * "http://0.0.0.0:9877/ld4s"
+	 *
+	 * @return The host uri.
+	 */
+	public String getUri() {
+		return "http://"+this.hostName;
+	}
+	
 	/**
 	 * Creates a new instance of the HTTP server suitable for unit testing. DPD
 	 * properties are initialized from the User's dailyprojectdata.properties file, then set to their
@@ -275,6 +286,9 @@ public class Server extends Application{
 				// GRAPHs
 				router.attach("/graph/{other}", OtherResource.class);
 		
+				// ACTUATOR DECISION SUPPORT
+				router.attach("/actuator/decision", ActuatorDecisionResource.class);
+				router.attach("/actuator/decision/", ActuatorDecisionResource.class);
 		
 
 		return router;

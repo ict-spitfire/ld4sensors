@@ -1,13 +1,15 @@
 package eu.spitfire_project.ld4s.vocabulary;
 
+import com.hp.hpl.jena.ontology.DatatypeProperty;
 import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
+import com.hp.hpl.jena.ontology.OntProperty;
+import com.hp.hpl.jena.ontology.TransitiveProperty;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.vocabulary.RDFS;
 
 	/**
 	 * Vocabulary definitions from
@@ -21,7 +23,7 @@ import com.hp.hpl.jena.vocabulary.RDFS;
 	   * The ontology model that holds the vocabulary terms
 	   * </p>
 	   */
-	  public static OntModel m_model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, null);
+	  public static OntModel m_model = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM_MICRO_RULE_INF, null);
 
 	  /**
 	   * <p>
@@ -55,15 +57,15 @@ import com.hp.hpl.jena.vocabulary.RDFS;
 	  // /////////////////////////
 
 	  public static final ObjectProperty HAS_VALUE_RANGE = m_model
-      .createObjectProperty(NS+"hasValueRange");
+      .createObjectProperty(NS+"valueRange");
 	  public static final ObjectProperty HAS_VALUE = m_model
-      .createObjectProperty(NS+"hasValue");
+      .createObjectProperty(NS+"value");
 	  public static final ObjectProperty HAS_AVG_VALUE = m_model
-      .createObjectProperty(NS+"hasAvgValue");
+      .createObjectProperty(NS+"avgValue");
 	  public static final ObjectProperty HAS_MIN_VALUE = m_model
-      .createObjectProperty(NS+"hasMinValue");
+      .createObjectProperty(NS+"minValue");
 	  public static final ObjectProperty HAS_MAX_VALUE = m_model
-      .createObjectProperty(NS+"hasMaxValue");
+      .createObjectProperty(NS+"maxValue");
 	  public static final ObjectProperty STATUS = m_model
       .createObjectProperty(NS+"status");
 	  public static final ObjectProperty FEED = m_model
@@ -74,8 +76,8 @@ import com.hp.hpl.jena.vocabulary.RDFS;
       .createObjectProperty(NS+"tsMapOf");
 	  public static final ObjectProperty TS_MAP = m_model
       .createObjectProperty(NS+"tsMap");
-	  public static final ObjectProperty WORN_BY = m_model
-      .createObjectProperty(NS+"wornBy");
+	  public static final TransitiveProperty WORN_BY = m_model
+      .createTransitiveProperty(NS+"wornBy");
 	  public static final ObjectProperty OWNS = m_model
       .createObjectProperty(NS+"owns");
 	  public static final ObjectProperty OWNED_BY = m_model
@@ -96,22 +98,26 @@ import com.hp.hpl.jena.vocabulary.RDFS;
       .createObjectProperty(NS+"netRole");
 	  public static final ObjectProperty TEMPORAL = m_model
       .createObjectProperty(NS+"temporal");
+	  public static final ObjectProperty TEMPORAL_OF = m_model
+		      .createObjectProperty(NS+"temporalOf");
 	  public static final ObjectProperty OUT = m_model
       .createObjectProperty(NS+"out");
+	  public static final ObjectProperty OUT_OF = m_model
+		      .createObjectProperty(NS+"outOf");
 	  public static final ObjectProperty OBSERVED_PROPERTY = m_model
       .createObjectProperty(NS+"obs");
 	  public static final ObjectProperty UOM = m_model
       .createObjectProperty(NS+"uom");
 	  public static final ObjectProperty VALUE = m_model
 	      .createObjectProperty(NS+"value");
-	  public static final ObjectProperty IN = m_model
-      .createObjectProperty(NS+"containedIn");
-	  public static final ObjectProperty UNDER = m_model
-      .createObjectProperty(NS+"under");
-	  public static final ObjectProperty OVER = m_model
-      .createObjectProperty(NS+"over");
-	  public static final ObjectProperty NEAR = m_model
-      .createObjectProperty(NS+"nearby");
+	  public static TransitiveProperty IN = m_model
+      .createTransitiveProperty(NS+"containedIn");
+	  public static final TransitiveProperty UNDER = m_model
+      .createTransitiveProperty(NS+"under");
+	  public static final TransitiveProperty OVER = m_model
+      .createTransitiveProperty(NS+"over");
+	  public static final TransitiveProperty NEAR = m_model
+      .createTransitiveProperty(NS+"nearby");
 	  public static final ObjectProperty DOMAIN = m_model
       .createObjectProperty(NS+"domain");
 	  public static final ObjectProperty CONFIDENCE = m_model
@@ -154,6 +160,22 @@ import com.hp.hpl.jena.vocabulary.RDFS;
 	  public static final ObjectProperty IS_CROSS = m_model
       .createObjectProperty(NS+"isTopicFor");
 	  
+	  public static final DatatypeProperty IP_DEVICE = m_model
+			  .createDatatypeProperty(NS+"ipDevice");
+	  public static final DatatypeProperty IP_SENSOR = m_model
+			  .createDatatypeProperty(NS+"ipSensor");
+	  public static final DatatypeProperty IP_GATE = m_model
+			  .createDatatypeProperty(NS+"ipGate");
+	  public static final DatatypeProperty DEVICE_ID = m_model
+			  .createDatatypeProperty(NS+"deviceId");
+	  public static final Property TIME = m_model
+			  .createDatatypeProperty(NS+"time");
+	  
+	  public static final DatatypeProperty SPACE = m_model
+			  .createDatatypeProperty(NS+"space");
+	  public static final DatatypeProperty TOT_AREAS = m_model
+			  .createDatatypeProperty(NS+"totAreas");
+	  
 	  public static final ObjectProperty TITLE = m_model
       .createObjectProperty(NS+"title");
 	  public static final ObjectProperty START_TIME = m_model
@@ -161,27 +183,11 @@ import com.hp.hpl.jena.vocabulary.RDFS;
 	  public static final ObjectProperty END_TIME = m_model
       .createObjectProperty(NS+"tEnd");
 	  
-	  public static ObjectProperty getInverse(Property prop){
-		  if (prop.equals(GEOGRAPHY)){
-			  return IS_GEOGRAPHY;
-		  }else if (prop.equals(PUBLICATION)){
-			  return IS_PUBLICATION;
-		  }else if (prop.equals(QUANTITY)){
-			  return IS_QUANTITY;
-		  }else if (prop.equals(CROSS)){
-			  return IS_CROSS;
-		  }else if (prop.equals(GOV)){
-			  return IS_GOV;
-		  }else if (prop.equals(MEDIA)){
-			  return IS_MEDIA;
-		  }else if (prop.equals(LIFESCIENCE)){
-			  return IS_LIFE_SCIENCE;
-		  }else if (prop.equals(USER_GEN)){
-			  return IS_USER_GEN;
-		  }else if (prop.equals(RDFS.seeAlso)){
-			  return m_model.createObjectProperty(RDFS.seeAlso.getURI());
-		  }
-		  return null;
+	  public static final ObjectProperty ACTUATED_PROPERTY_P = m_model
+		      .createObjectProperty(NS+"actuatedProperty");
+	  
+	  public static OntProperty getInverse(OntProperty prop){
+		  return prop.getInverse();
 	  }
 	  
 	  // Vocabulary classes
@@ -198,7 +204,41 @@ import com.hp.hpl.jena.vocabulary.RDFS;
       .createClass(SptVocab.NS+"DataLink");
 	  public static final OntClass LINKREVIEW = m_model
       .createClass(NS+"LinkReview");
+	  
+	  public static final OntClass ACTUATED_PROPERTY = m_model
+		      .createClass(NS+"ActuatedProperty");
+	  public static final OntClass ACTUATOR = m_model
+		      .createClass(NS+"Actuator");
+	  
+	  
+	  public static final ObjectProperty GATEWAY_ADDRESS= m_model
+		      .createObjectProperty(NS+"gatewayAddress");
+	  public static final ObjectProperty SENSOR_ADDRESS= m_model
+		      .createObjectProperty(NS+"sensorAddress");
+	  
 	  // Vocabulary individuals
 	  // /////////////////////////
+	  
+	  public SptVocab(){
+		  IN = IN.asTransitiveProperty();
+		  
+		  IN.setSuperProperty(
+m_model.createOntProperty("http://www.ontologydesignpatterns.org/ont/dul/DUL.owl/hasLocation"));
+		  
+		  TEMPORAL.setInverseOf(TEMPORAL_OF);
+		  OUT.setInverseOf(OUT_OF);
+		  OWNS.setInverseOf(OWNED_BY);
+		  
+		  
+		  CROSS.setInverseOf(IS_CROSS);
+		  QUANTITY.setInverseOf(IS_QUANTITY);
+		  PUBLICATION.setInverseOf(IS_PUBLICATION);
+		  GEOGRAPHY.setInverseOf(IS_GEOGRAPHY);
+		  GOV.setInverseOf(IS_GOV);
+		  MEDIA.setInverseOf(IS_MEDIA);
+		  IS_USER_GEN.setInverseOf(IS_USER_GEN);
+		  IS_LIFE_SCIENCE.setInverseOf(LIFESCIENCE);
+		  
+	  }
 
 }

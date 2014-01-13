@@ -56,8 +56,6 @@ public class MC extends LD4SObject  implements Serializable{
 	 * normally sensing more than one property). */
 	private String observed_property = null;
 	
-	/** Temporarily (to enhance the link search): Feature of Interest. */
-	private String foi = null;
 	
 	/** Measurement Properties  
 	 * including for each meas. prop. more or 
@@ -90,10 +88,10 @@ public class MC extends LD4SObject  implements Serializable{
 			this.setObserved_property(LD4SDataResource.removeBrackets(
 					json.getString("observed_property")));
 		}
-		if (json.has("foi")){
-			this.setFoi(LD4SDataResource.removeBrackets(
-					json.getString("foi")));
-		}
+//		if (json.has("foi")){
+//			this.setFoi(LD4SDataResource.removeBrackets(
+//					json.getString("foi")));
+//		}
 		if (json.has("measurement_properties")){
 			this.setMeasurement_prop_uris(json.getJSONArray("measurement_properties"));
 		}
@@ -203,11 +201,5 @@ public class MC extends LD4SObject  implements Serializable{
 		return measurement_prop_uris;
 	}
 
-	public void setFoi(String foi) {
-		this.foi = foi;
-	}
-
-	public String getFoi() {
-		return foi;
-	}
+	
 }
